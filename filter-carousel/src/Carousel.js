@@ -1,6 +1,43 @@
 import React from "react";
 import "./Carousel.css";
 import CarouselItem from "./CarouselItem";
+import styled, { css } from "styled-components";
+
+const Arrow = styled.div`
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    background-color: transparent; 
+    ${props => props.left && css`
+        border-right:10px solid whitesmoke;
+    `}
+    ${props => props.right && css`
+        border-left:10px solid whitesmoke;
+        margin-left: 25px;
+    `}
+`;
+
+const ArrowContainer = styled.div`
+    height: 30px;
+    width: 40px;
+`;
+
+const CarouselDiv = styled.div`
+    display: flex; 
+    align-items: center;
+`;
+
+const CarouselItemWrapper = styled.div`
+    width: 2000px;
+`;
+
+const CarouselWindowDiv = styled.div`
+    width: 600px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 10px;
+`;
 
 export default class Carousel extends React.Component {
     constructor(props) {
@@ -69,26 +106,22 @@ export default class Carousel extends React.Component {
     }
 
     render() {
-        var style = {
-            left: this.state.left
-        };
-
         return (
-            <div style={{ display: "flex", alignItems: "center" }}>
-                <div style={{ height: "30px", width: "40px" }} >{this.state.isPrevActive && <div className="arrow-left" onClick={this.prevSlide}></div>}</div>
-                <div className="slider-wrapper">
-                    <div className="slider">
-                        {this.state.slider.map(function (item, index) {
-                            let isCurrent = index + 1 === this.state.activeIndex;
-                            return (
-                                <CarouselItem item={item} style={style} />
-                            )
-                        }, this)
-                        }
-                    </div>
-                </div>
-                <div style={{ height: "30px", width: "40px" }} >{this.state.isNextActive && <div className="arrow-right" onClick={this.nextSlide}></div>}</div>
-            </div >
+            <CarouselDiv>
+                <ArrowContainer>
+                    {this.state.isPrevActive && <Arrow left onClick={this.prevSlide} />}
+                </ArrowContainer>
+                <CarouselWindowDiv>
+                    <CarouselItemWrapper >
+                        {this.state.slider.map((item, index) => {
+                            return <CarouselItem item={item} leftOffest={this.state.left} />
+                        })}
+                    </CarouselItemWrapper>
+                </CarouselWindowDiv>
+                <ArrowContainer>
+                    {this.state.isNextActive && <Arrow right onClick={this.nextSlide} />}
+                </ArrowContainer>
+            </CarouselDiv >
         );
     }
 }

@@ -20,9 +20,8 @@
   
   .slider {
     width: 2000px;
-    
   }
-  .arrow-left {
+  /* .arrow-left {
     width: 0; 
     height: 0; 
     border-top: 10px solid transparent;
@@ -41,16 +40,16 @@
     border-left: 10px solid whitesmoke;
     background-color: transparent;
     margin-left: 25px;
-  }
+  } */
 
-  .slider-item {
+  /* .slider-item {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     background-color: white;
     float: left;
     position: relative;
     transition: all .2s linear;
     /* border: 1px solid black; */
-  }
+  /* }  */
   
   /* .hide {
     float: left;
