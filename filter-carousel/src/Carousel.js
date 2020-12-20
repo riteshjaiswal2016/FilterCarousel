@@ -70,30 +70,24 @@ export default class Carousel extends React.Component {
 
     render() {
         var style = {
-            width: `${this.modWidth / 3}px`,
-            height: this.props.sliderHeight,
-            display: "inline-block"
+            left: this.state.left
         };
 
         return (
             <div style={{ display: "flex", alignItems: "center" }}>
-                <div style={{ height: "30px", width: "40px" }} >{this.state.isPrevActive && <button onClick={this.prevSlide}>Prev</button>}</div>
+                <div style={{ height: "30px", width: "40px" }} >{this.state.isPrevActive && <div className="arrow-left" onClick={this.prevSlide}></div>}</div>
                 <div className="slider-wrapper">
-                    <ul className="slider">
+                    <div className="slider">
                         {this.state.slider.map(function (item, index) {
                             let isCurrent = index + 1 === this.state.activeIndex;
                             return (
-                                <CarouselItem imgUrl={item.imgUrl} imgTitle="" isCurrent={isCurrent} style={style} leftStyle={this.state.left} />
+                                <CarouselItem item={item} style={style} />
                             )
                         }, this)
                         }
-                    </ul>
+                    </div>
                 </div>
-                {/* <div className="buttons-wrapper">
-                    {this.state.isPrevActive && <button className="prev-button" onClick={this.prevSlide}></button>}
-                    {this.state.isNextActive && <button className="next-button" onClick={this.nextSlide}></button>}
-                </div> */}
-                <div style={{ height: "30px", width: "40px" }} >{this.state.isNextActive && <button onClick={this.nextSlide}>Next</button>}</div>
+                <div style={{ height: "30px", width: "40px" }} >{this.state.isNextActive && <div className="arrow-right" onClick={this.nextSlide}></div>}</div>
             </div >
         );
     }

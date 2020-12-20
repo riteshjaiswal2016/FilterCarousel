@@ -18,10 +18,10 @@ const CarouselContainer = () => {
     return (
         <>
             <select onChange={onProductChange}>
-                <option value={PRODUCT_CATEGORY.ANDROID.id}>{PRODUCT_CATEGORY.ANDROID.name}</option>
                 <option value={PRODUCT_CATEGORY.IPHONE.id}>{PRODUCT_CATEGORY.IPHONE.name}</option>
+                <option value={PRODUCT_CATEGORY.ANDROID.id}>{PRODUCT_CATEGORY.ANDROID.name}</option>
             </select>
-            <Carousel sliderItems={selectedCategoryItems} sliderWidth="600px" sliderHeight="200px" />
+            <Carousel sliderItems={selectedCategoryItems} sliderWidth="600px" sliderHeight="250px" />
         </>
     )
 }
