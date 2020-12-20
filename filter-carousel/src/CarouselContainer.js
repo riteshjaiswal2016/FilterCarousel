@@ -1,15 +1,24 @@
 import Carousel from "./Carousel";
 import React, { useState } from "react";
-import { CAR_IMAGES, PRODUCT_CATEGORY } from "./constants";
+import { PRODUCTS, PRODUCT_CATEGORY } from "./constants";
+import styled from "styled-components";
+
+const Select = styled.select`
+    padding: 7px;
+    width: 100px;
+    border-radius: 5px;
+    margin-left: 40px;
+    margin-bottom: 30px;
+`;
 
 const CarouselContainer = () => {
-    const filteredItems = CAR_IMAGES.filter((item) => {
+    const filteredItems = PRODUCTS.filter((item) => {
         return item.categoryId === 1;
     });
     const [selectedCategoryItems, setSelectedCategoryItems] = useState(filteredItems);
     const onProductChange = (event) => {
         let selectedCategoryId = event.target.value;
-        let items = CAR_IMAGES.filter((item) => {
+        let items = PRODUCTS.filter((item) => {
             return item.categoryId === parseInt(selectedCategoryId);
         })
         setSelectedCategoryItems(items);
@@ -17,11 +26,11 @@ const CarouselContainer = () => {
 
     return (
         <>
-            <select onChange={onProductChange}>
+            <Select onChange={onProductChange}>
                 <option value={PRODUCT_CATEGORY.IPHONE.id}>{PRODUCT_CATEGORY.IPHONE.name}</option>
                 <option value={PRODUCT_CATEGORY.ANDROID.id}>{PRODUCT_CATEGORY.ANDROID.name}</option>
-            </select>
-            <Carousel sliderItems={selectedCategoryItems} sliderWidth="600px" sliderHeight="250px" />
+            </Select>
+            <Carousel carouselItems={selectedCategoryItems} />
         </>
     )
 }

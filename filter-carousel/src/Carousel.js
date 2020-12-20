@@ -1,5 +1,4 @@
 import React from "react";
-import "./Carousel.css";
 import CarouselItem from "./CarouselItem";
 import styled, { css } from "styled-components";
 
@@ -36,27 +35,25 @@ const CarouselWindowDiv = styled.div`
     width: 600px;
     height: 250px;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 4px;
 `;
+
+const carouselWidth = 600;
 
 export default class Carousel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            slider: this.props.sliderItems,
-            activeIndex: 1,
-            left: 0,
-            isNextActive: true,
-            isPrevActive: false,
+            ...Carousel.getInitialState(this.props)
         }
-        this.modWidth = parseInt(this.props.sliderWidth.replace("px", ""));
     }
 
-    prevSlide = () => {
-        if (this.state.activeIndex === 2) {
+    slideToPreviousItem = () => {
+        const { firstItemIndex, left } = this.state;
+        if (firstItemIndex === 2) {
             this.setState({
-                activeIndex: this.state.activeIndex - 1,
-                left: this.state.left + this.modWidth / 3,
+                firstItemIndex: firstItemIndex - 1,
+                left: left + carouselWidth / 3,
                 isPrevActive: false,
                 isNextActive: true
             },
@@ -64,41 +61,46 @@ export default class Carousel extends React.Component {
         }
         else {
             this.setState({
-                activeIndex: this.state.activeIndex - 1,
-                left: this.state.left + this.modWidth / 3,
+                firstItemIndex: firstItemIndex - 1,
+                left: left + carouselWidth / 3,
                 isNextActive: true,
                 isPrevActive: true
             });
         }
     }
 
+    static getInitialState(props) {
+        const { carouselItems } = props;
+        return {
+            firstItemIndex: 1,
+            left: 0,
+            isNextActive: carouselItems.length > 3,
+            isPrevActive: false,
+            carouselItems: carouselItems,
+        }
+    }
+
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.sliderItems[0].categoryId != prevState.slider[0].categoryId) {
-            return {
-                activeIndex: 1,
-                left: 0,
-                isNextActive: true,
-                isPrevActive: false,
-                slider: nextProps.sliderItems,
-            }
+        if (nextProps.carouselItems[0].categoryId !== prevState.carouselItems[0].categoryId) {
+            return Carousel.getInitialState(nextProps);
         }
         return null;
     }
 
-    nextSlide = () => {
-        if (this.state.activeIndex === this.state.slider.length - 3) {
+    slideToNextItem = () => {
+        const { firstItemIndex, carouselItems, left } = this.state;
+        if (firstItemIndex === carouselItems.length - 3) {
             this.setState({
-                activeIndex: this.state.activeIndex + 1,
-                left: this.state.left - this.modWidth / 3,
+                firstItemIndex: firstItemIndex + 1,
+                left: left - carouselWidth / 3,
                 isNextActive: false,
                 isPrevActive: true
-            }
-            );
+            });
         }
         else {
             this.setState({
-                activeIndex: this.state.activeIndex + 1,
-                left: this.state.left - this.modWidth / 3,
+                firstItemIndex: firstItemIndex + 1,
+                left: left - carouselWidth / 3,
                 isPrevActive: true,
                 isNextActive: true
             })
@@ -109,17 +111,17 @@ export default class Carousel extends React.Component {
         return (
             <CarouselDiv>
                 <ArrowContainer>
-                    {this.state.isPrevActive && <Arrow left onClick={this.prevSlide} />}
+                    {this.state.isPrevActive && <Arrow left onClick={this.slideToPreviousItem} />}
                 </ArrowContainer>
                 <CarouselWindowDiv>
                     <CarouselItemWrapper >
-                        {this.state.slider.map((item, index) => {
+                        {this.state.carouselItems.map((item, index) => {
                             return <CarouselItem item={item} leftOffest={this.state.left} />
                         })}
                     </CarouselItemWrapper>
                 </CarouselWindowDiv>
                 <ArrowContainer>
-                    {this.state.isNextActive && <Arrow right onClick={this.nextSlide} />}
+                    {this.state.isNextActive && <Arrow right onClick={this.slideToNextItem} />}
                 </ArrowContainer>
             </CarouselDiv >
         );

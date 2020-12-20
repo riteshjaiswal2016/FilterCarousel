@@ -1,4 +1,4 @@
-export const CAR_IMAGES = [
+export const PRODUCTS = [
     {
         imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcMnraCcsNYw57YXEGNLhh_X_K-oIUH9S9zqsELD6CZtQhoD0vbKldLlnVNl5GuvPyIN3v3jg&usqp=CAc",
         categoryId: 1,
