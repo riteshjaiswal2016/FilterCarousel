@@ -33,7 +33,7 @@ const CarouselItemWrapper = styled.div`
 
 const CarouselWindowDiv = styled.div`
     width: 600px;
-    height: 250px;
+    height: 270px;
     overflow: hidden;
     border-radius: 4px;
 `;

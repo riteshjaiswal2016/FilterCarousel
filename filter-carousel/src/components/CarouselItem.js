@@ -5,6 +5,9 @@ const Div = styled.div`
     width: 200px;
     display: flex;
     justify-content: center;
+    margin-top:5px;
+    margin-bottom:5px;
+    color: #303030;
 `
 const ImageDiv = styled.div`
     width: 200px;

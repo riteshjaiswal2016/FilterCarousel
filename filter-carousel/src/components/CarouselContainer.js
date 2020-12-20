@@ -1,6 +1,6 @@
 import Carousel from "./Carousel";
 import React, { useState } from "react";
-import { PRODUCTS, PRODUCT_CATEGORY } from "./constants";
+import { PRODUCTS, PRODUCT_CATEGORY } from "../constants";
 import styled from "styled-components";
 
 const Select = styled.select`
